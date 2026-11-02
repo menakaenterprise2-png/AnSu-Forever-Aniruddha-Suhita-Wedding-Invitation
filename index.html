@@ -512,4 +512,265 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // এখানে আপনার Apps Script-এর
+        // নতুন আপডেট করা Apps Script-এর Web App URL এখানে বসানো হয়েছে
+        let APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqQ40Wq0Dpljbq3nbS0hn_RQIAk16WL9GUtT-gk-bYISEwjDOy7Y57F1NaMYss4uRn/exec';
+
+        let lastScrollPosition = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initPetals();
+            startCountdown();
+            initScrollObserver();
+            triggerFlowerExplosion();
+            initHistoryNavigation();
+            initWeddingAudio();
+        });
+
+        const weddingAudio = document.getElementById('wedding-audio');
+        let isAudioPlaying = false;
+
+        function updateAudioIcon() {
+            const icon = document.getElementById('audio-icon');
+            const button = document.getElementById('audio-btn');
+            if (icon) icon.className = 'fas fa-music text-lg';
+            if (button) button.setAttribute('aria-pressed', isAudioPlaying ? 'true' : 'false');
+        }
+
+        let musicAutoplayTimer = null;
+        let musicBubbleTimer = null;
+
+        function showMusicTapBubble() {
+            const bubble = document.getElementById('music-tap-bubble');
+            if (!bubble || isAudioPlaying) return;
+            bubble.classList.add('show');
+            clearTimeout(musicBubbleTimer);
+            musicBubbleTimer = setTimeout(() => bubble.classList.remove('show'), 2200);
+        }
+
+        function hideMusicTapBubble() {
+            const bubble = document.getElementById('music-tap-bubble');
+            if (bubble) bubble.classList.remove('show');
+            clearTimeout(musicBubbleTimer);
+        }
+
+        function attemptWeddingAutoplay() {
+            if (!weddingAudio || !weddingAudio.paused) return;
+            weddingAudio.volume = 1;
+            const attempt = weddingAudio.play();
+            if (attempt && typeof attempt.then === 'function') {
+                attempt.then(() => {
+                    isAudioPlaying = true;
+                    hideMusicTapBubble();
+                    updateAudioIcon();
+                }).catch(() => {
+                    isAudioPlaying = false;
+                    updateAudioIcon();
+                    showMusicTapBubble();
+                });
+            } else {
+                showMusicTapBubble();
+            }
+        }
+
+        function initWeddingAudio() {
+            if (!weddingAudio) return;
+            weddingAudio.addEventListener('play', () => {
+                isAudioPlaying = true;
+                hideMusicTapBubble();
+                updateAudioIcon();
+            });
+            weddingAudio.addEventListener('pause', () => {
+                isAudioPlaying = false;
+                updateAudioIcon();
+            });
+            weddingAudio.addEventListener('ended', () => {
+                isAudioPlaying = false;
+                updateAudioIcon();
+            });
+
+            musicAutoplayTimer = setTimeout(() => {
+                if (weddingAudio.readyState >= 2) {
+                    attemptWeddingAutoplay();
+                } else {
+                    weddingAudio.addEventListener('canplay', attemptWeddingAutoplay, { once: true });
+                    weddingAudio.addEventListener('error', showMusicTapBubble, { once: true });
+                    weddingAudio.load();
+                }
+            }, 1000);
+        }
+
+        async function toggleAudio(e) {
+            if (e) e.stopPropagation();
+            hideMusicTapBubble();
+            if (!weddingAudio) return;
+            try {
+                if (weddingAudio.paused) {
+                    await weddingAudio.play();
+                } else {
+                    weddingAudio.pause();
+                }
+            } catch (error) {
+                isAudioPlaying = false;
+            }
+            updateAudioIcon();
+        }
+
+        window.addEventListener('pageshow', (event) => { if (event.persisted) attemptWeddingAutoplay(); });
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) attemptWeddingAutoplay();
+        });
+
+        function initHistoryNavigation() {
+            if (!history.state) {
+                history.replaceState({ pageId: 'page-home' }, '', window.location.href);
+            }
+
+            window.addEventListener('popstate', (event) => {
+                if (event.state && event.state.pageId) {
+                    showPageWithoutPush(event.state.pageId);
+                } else {
+                    showPageWithoutPush('page-home');
+                }
+            });
+        }
+
+        function switchPage(pageId, isHome = false) {
+            lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (!isHome) {
+                history.pushState({ pageId: pageId }, '', '#' + pageId.replace('page-', ''));
+            }
+
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function showPageWithoutPush(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+            if (pageId === 'page-home') {
+                window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function goBackToHome(fromPageId) {
+            if (history.state && history.state.pageId !== 'page-home') {
+                history.back();
+            } else {
+                showPageWithoutPush('page-home');
+            }
+        }
+
+        function initScrollObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll, .reveal-scale').forEach(el => observer.observe(el));
+        }
+
+        function triggerFlowerExplosion() {
+            confetti({
+                particleCount: 100,
+                spread: 90,
+                origin: { y: 0.4 },
+                colors: ['#D4AF37', '#800020', '#FFD700', '#C8102E', '#FFA500']
+            });
+        }
+
+        function initPetals() {
+            const container = document.getElementById('petals-container');
+            for (let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = `petal ${Math.random() > 0.5 ? 'rose' : ''}`;
+                const size = Math.random() * 12 + 10;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.animationDuration = `${Math.random() * 5 + 6}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        function startCountdown() {
+            const target = new Date('2026-12-13T00:00:00').getTime();
+            const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            const toBnNum = num => String(num).padStart(2, '0').split('').map(d => bnDigits[d] || d).join('');
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = target - now;
+                if (diff <= 0) return;
+
+                document.getElementById('cd-days').innerText = toBnNum(Math.floor(diff / (1000 * 60 * 60 * 24)));
+                document.getElementById('cd-hours').innerText = toBnNum(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+                document.getElementById('cd-minutes').innerText = toBnNum(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+                document.getElementById('cd-seconds').innerText = toBnNum(Math.floor((diff % (1000 * 60)) / 1000));
+            }, 1000);
+        }
+
+        // RSVP SUBMISSION VIA FETCH API
+        async function handleFoodRSVP(e) {
+            e.preventDefault();
+
+            const selectedRadio = document.querySelector('input[name="food_pref"]:checked');
+            if (!selectedRadio) return;
+
+            const foodPref = selectedRadio.value; // 'Veg' or 'Non-Veg'
+            const btnText = document.getElementById('rsvp-btn-text');
+            const spinner = document.getElementById('rsvp-spinner');
+            const btn = document.getElementById('rsvp-btn');
+
+            btnText.innerText = 'সংরক্ষণ হচ্ছে...';
+            spinner.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ food_preference: foodPref })
+                });
+
+                const res = await response.json();
+                if (res.status === 'success') {
+                    document.getElementById('food-rsvp-form').classList.add('hidden');
+                    document.getElementById('rsvp-done-msg').classList.remove('hidden');
+                    confetti({ particleCount: 120, spread: 90, origin: { y: 0.7 } });
+                } else {
+                    alert('ত্রুটি: ' + res.message);
+                }
+            } catch (err) {
+                alert('নেটওয়ার্ক সংযোগ সফল হয়নি। অনুগ্রহ করে আবার চেষ্টা করুন।');
+            } finally {
+                btnText.innerText = 'জমা দিন';
+                spinner.classList.add('hidden');
+                btn.disabled = false;
+            }
+        }
+
+        function openLightbox(src) {
+            document.getElementById('modal-img-display').src = src;
+            document.getElementById('image-modal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('image-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
