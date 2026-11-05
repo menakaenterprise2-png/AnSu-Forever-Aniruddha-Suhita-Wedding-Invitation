@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330">
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2b0"/><stop offset=".35" stop-color="#e6bd52"/><stop offset=".7" stop-color="#a86b16"/><stop offset="1" stop-color="#ffe89a"/></linearGradient>
+ <filter id="glow" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<g fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M80 165 Q170 35 310 82 Q390 8 600 42 Q810 8 890 82 Q1030 35 1120 165 Q1030 295 890 248 Q810 322 600 288 Q390 322 310 248 Q170 295 80 165Z"/>
+ <path d="M112 165 Q195 65 315 105 Q410 38 600 67 Q790 38 885 105 Q1005 65 1088 165 Q1005 265 885 225 Q790 292 600 263 Q410 292 315 225 Q195 265 112 165Z" stroke-width="2.5"/>
+ <path d="M155 165 Q225 125 285 165 Q225 205 155 165 M1045 165 Q975 125 915 165 Q975 205 1045 165"/>
+ <path d="M340 78 Q390 135 455 105 M860 78 Q810 135 745 105 M340 252 Q390 195 455 225 M860 252 Q810 195 745 225"/>
+ <path d="M600 18 l16 24 28 5-20 20 5 28-29-14-29 14 5-28-20-20 28-5Z" fill="url(#gold)" stroke-width="2"/>
+</g>
+<g fill="url(#gold)" stroke="#7a300d" stroke-width="1.5" filter="url(#glow)" text-anchor="middle">
+ <text x="600" y="190" font-family="'Noto Serif Bengali','Tiro Bangla',serif" font-size="88" font-weight="bold">শ্রী শ্রী প্রজাপতয়ে নমঃ</text>
+</g>
+<g fill="#f8dda0">
+ <circle cx="80" cy="165" r="7"/><circle cx="1120" cy="165" r="7"/><circle cx="310" cy="82" r="5"/><circle cx="890" cy="82" r="5"/>
+</g>
+</svg>
