@@ -83,19 +83,30 @@
 
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 1.25s cubic-bezier(.22,.75,.25,1), transform 1.25s cubic-bezier(.22,.75,.25,1);
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
         .reveal-on-scroll.is-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* Hero image: full-height presentation with a soft cinematic entrance - PRESERVED EXACTLY */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.94);
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-scale.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         @keyframes heroImageReveal {
-            from { transform: scale(1.075); opacity: 0.72; }
+            from { transform: scale(1.06); opacity: 0.7; }
             to { transform: scale(1); opacity: 1; }
         }
         #hero-img {
@@ -106,7 +117,7 @@
             object-fit: cover;
             object-position: center center;
             display: block;
-            animation: heroImageReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: heroImageReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
             will-change: transform, opacity;
         }
         @media (min-width: 768px) {
@@ -116,41 +127,22 @@
             #hero-img { animation: none; }
         }
 
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity 1.25s cubic-bezier(.22,.75,.25,1), transform 1.25s cubic-bezier(.22,.75,.25,1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-scale.is-visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* 2. HOMEPAGE TILES: EXACT 1:1 SQUARE ASPECT RATIO, OBJECT-FIT COVER, 0 BORDER-RADIUS */
-        .homepage-square-tile {
+        .home-square-tile {
             aspect-ratio: 1 / 1 !important;
-            border-radius: 0 !important;
+            border-radius: 0px !important;
             overflow: hidden;
-            object-fit: cover !important;
         }
-        .homepage-square-tile img {
-            border-radius: 0 !important;
-            object-fit: cover !important;
+
+        .home-square-tile img {
             width: 100%;
             height: 100%;
+            object-fit: cover !important;
+            border-radius: 0px !important;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 3. INNER PAGE IMAGES: PRESERVE ORIGINAL ASPECT RATIO */
-        .inner-page-image {
-            width: 100% !important;
-            height: auto !important;
-            max-height: 75vh;
-            object-fit: contain !important;
-            border-radius: 0 !important;
-            display: block;
-            margin: 0 auto;
+        .home-square-tile:hover img {
+            transform: scale(1.05);
         }
 
         .family-img-container {
@@ -171,14 +163,9 @@
             width: 100%;
             height: auto;
             max-height: 560px;
-            object-fit: contain;
+            object-fit: contain !important;
             border-radius: 0;
             box-shadow: none;
-            transition: transform 0.3s ease;
-        }
-
-        .family-img-container:hover img {
-            transform: none;
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -187,20 +174,20 @@
 
         @keyframes gentleZoom {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.11); }
+            50% { transform: scale(1.06); }
         }
         .tap-hint, .return-home-btn {
-            animation: gentleZoom 1.4s ease-in-out infinite;
+            animation: gentleZoom 2.2s ease-in-out infinite;
             transform-origin: center;
             will-change: transform;
         }
         @keyframes weddingDatePulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.035); }
+            50% { transform: scale(1.03); }
         }
         .wedding-date-pulse {
             display: inline-block;
-            animation: weddingDatePulse 2.4s ease-in-out infinite;
+            animation: weddingDatePulse 3s ease-in-out infinite;
             transform-origin: center;
         }
         .music-tap-bubble {
@@ -220,7 +207,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(-4px) scale(.92);
-            transition: opacity .2s ease, transform .2s ease, visibility .2s;
+            transition: opacity .3s ease, transform .3s ease, visibility .3s;
             pointer-events: none;
         }
         .music-tap-bubble::before {
@@ -241,72 +228,47 @@
             transform: translateY(0) scale(1);
         }
 
-        /* 1. HORIZONTAL PAGE TRANSITIONS (NO VERTICAL MOVEMENT) */
-        .page-container {
-            position: relative;
-            width: 100%;
-            overflow-x: hidden;
-        }
-
         .page-view {
-            width: 100%;
             display: block;
-            will-change: transform, opacity;
+            width: 100%;
+            position: relative;
         }
-        .page-view.hidden { 
-            display: none !important; 
-        }
+        .page-view.hidden { display: none !important; }
 
-        /* Forward Animations (Right -> Left) */
-        .page-view.slide-out-left {
-            animation: slideOutLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .page-view.slide-in-right {
-            animation: slideInRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
+        .page-view.slide-in-right { animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .page-view.slide-out-left { animation: slideOutLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; pointer-events: none; }
+        .page-view.slide-in-left { animation: slideInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .page-view.slide-out-right { animation: slideOutRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; pointer-events: none; }
 
-        /* Backward Animations (Left -> Right) */
-        .page-view.slide-out-right {
-            animation: slideOutRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0.6; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        .page-view.slide-in-left {
-            animation: slideInLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
         @keyframes slideOutLeft {
-            from { transform: translateX(0%); opacity: 1; }
+            from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(-100%); opacity: 0; }
         }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0%); opacity: 1; }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0.6; }
+            to { transform: translateX(0); opacity: 1; }
         }
         @keyframes slideOutRight {
-            from { transform: translateX(0%); opacity: 1; }
+            from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
         }
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0%); opacity: 1; }
-        }
 
-        .page-view .page-stagger {
-            animation: staggerReveal 0.6s cubic-bezier(.22,.75,.25,1) both;
+        .page-view.page-enter .page-stagger {
+            animation: staggerReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .page-view .page-stagger:nth-child(2) { animation-delay: .08s; }
-        .page-view .page-stagger:nth-child(3) { animation-delay: .16s; }
-        .page-view .page-stagger:nth-child(4) { animation-delay: .24s; }
-        
+        .page-view.page-enter .page-stagger:nth-child(2) { animation-delay: .15s; }
+        .page-view.page-enter .page-stagger:nth-child(3) { animation-delay: .3s; }
+        .page-view.page-enter .page-stagger:nth-child(4) { animation-delay: .45s; }
+
         @keyframes staggerReveal {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .reveal-on-scroll, .reveal-scale {
-            transition-duration: 1.25s !important;
-            transition-timing-function: cubic-bezier(.22,.75,.25,1) !important;
-        }
-        
         .photo-upload {
             display:block; width:100%; padding:14px; border:1px dashed rgba(128,0,32,.55);
             border-radius:14px; background:rgba(255,253,208,.65); color:#5C0612;
@@ -327,28 +289,25 @@
             border-top:2px solid #D4AF37; border-bottom:2px solid #D4AF37;
             box-shadow:0 18px 45px rgba(61,0,7,.12);
         }
+        .story-page-shell img { width:100%; height:auto; max-height:72vh; object-fit:contain; }
         .family-copy { background:rgba(255,255,255,.35); border:0; border-top:1px solid rgba(212,175,55,.55); border-radius:0; }
         .home-invitation-copy { max-width:760px; margin:12px auto 0; line-height:1.65; }
-
         @media (max-width:640px) {
             .story-page-shell, .family-page-shell, .wedding-card-shell { padding:18px 14px; }
             .family-img-container { min-height:120px; }
             .home-invitation-copy { font-size:14px; }
         }
-
-        /* Respect Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
-            .page-view.slide-out-left, .page-view.slide-in-right,
-            .page-view.slide-out-right, .page-view.slide-in-left,
-            .page-view .page-stagger { animation: none !important; transition: none !important; }
+            .page-view.slide-in-right, .page-view.slide-out-left,
+            .page-view.slide-in-left, .page-view.slide-out-right,
+            .page-view.page-enter .page-stagger { animation:none !important; }
             .reveal-on-scroll, .reveal-scale {
                 transition:none !important; opacity:1 !important; transform:none !important;
             }
-            .tap-hint, .return-home-btn { animation: none; }
         }
     </style>
 </head>
-<body class="relative min-h-screen text-gray-800 antialiased">
+<body class="relative min-h-screen text-gray-800 antialiased pt-16">
 
     <!-- FLOATING PETALS CONTAINER -->
     <div id="petals-container" class="fixed inset-0 pointer-events-none overflow-hidden z-30"></div>
@@ -356,29 +315,25 @@
     <!-- BACKGROUND WEDDING MUSIC -->
     <audio id="wedding-audio" src="wedding-song.mp3" autoplay loop preload="auto" playsinline></audio>
 
-    <!-- TOP-BAR MUSIC ICON -->
-    <div id="audio-control" class="fixed top-2 right-4 z-50">
-        <button type="button" onclick="toggleAudio(event)" id="audio-btn" aria-label="গান চালু বা বন্ধ করুন" aria-pressed="false" class="bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold border-2 border-bengali-gold w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition duration-300 transform hover:scale-110">
-            <i id="audio-icon" class="fas fa-music text-base"></i>
-        </button>
-        <div id="music-tap-bubble" class="music-tap-bubble">এখানে ট্যাপ করুন</div>
-    </div>
+    <!-- FIXED HEADER NAVBAR -->
+    <header class="bg-maroon-900 text-bengali-gold py-4 px-6 border-b-2 border-bengali-gold fixed top-0 left-0 right-0 z-50 shadow-md flex justify-between items-center h-16">
+        <div class="font-tiro font-bold text-xl md:text-2xl tracking-wider cursor-pointer" onclick="switchPage('page-home', true)">
+            অনিরুদ্ধ <span class="text-red-500">♥</span> সুহিতা
+        </div>
+        <div id="audio-control" class="relative">
+            <button type="button" onclick="toggleAudio(event)" id="audio-btn" aria-label="গান চালু বা বন্ধ করুন" aria-pressed="false" class="bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold border-2 border-bengali-gold w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition duration-300 transform hover:scale-110">
+                <i id="audio-icon" class="fas fa-music text-base"></i>
+            </button>
+            <div id="music-tap-bubble" class="music-tap-bubble">এখানে ট্যাপ করুন</div>
+        </div>
+    </header>
 
     <!-- MAIN WEBSITE CONTENT -->
-    <main id="main-content" class="paper-texture min-h-screen pb-16 page-container">
-
-        <!-- HEADER NAVBAR -->
-        <header class="bg-maroon-900 text-bengali-gold py-4 px-6 border-b-2 border-bengali-gold sticky top-0 z-40 shadow-md flex justify-between items-center">
-            <div class="font-tiro font-bold text-xl md:text-2xl tracking-wider cursor-pointer" onclick="switchPage('page-home', true)">
-                অনিরুদ্ধ <span class="text-red-500">♥</span> সুহিতা
-            </div>
-            <div></div>
-        </header>
+    <main id="main-content" class="paper-texture min-h-screen pb-16">
 
         <!-- PAGE 1: MAIN HOME VIEW -->
         <div id="page-home" class="page-view">
             
-            <!-- EDGE-TO-EDGE HERO IMAGE (EXACT ORIGINAL PRESERVED) -->
             <section class="w-full relative reveal-on-scroll">
                 <div class="relative w-full overflow-hidden flex justify-center bg-maroon-900">
                     <img id="hero-img" src="./hero.jpg" alt="Bengali Bride & Groom">
@@ -394,7 +349,6 @@
                 </div>
             </section>
 
-            <!-- WEDDING DAY -->
             <section class="py-5 px-4 bg-maroon-900 text-bengali-gold text-center border-b-2 border-bengali-gold">
                 <div class="wedding-date-pulse">
                     <p class="font-tiro text-lg md:text-xl font-bold text-bengali-goldlight">শুভ বিবাহ</p>
@@ -402,28 +356,26 @@
                 </div>
             </section>
 
-            <!-- WEDDING DATE & LIVE COUNTDOWN -->
             <section class="py-10 px-4 bg-maroon-900 text-bengali-gold border-b-2 border-bengali-gold text-center relative reveal-scale">
                 <div class="max-w-3xl mx-auto">
                     <h3 class="font-tiro text-2xl md:text-3xl font-bold mb-2">প্রীতিভোজের দিন</h3>
                     <p class="text-2xl md:text-4xl font-tiro font-bold text-white mb-1">২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
                     <p class="text-lg md:text-xl font-hind text-bengali-goldlight mb-6">সন্ধ্যা ৬:০০ ঘটিকা</p>
 
-                    <!-- Countdown -->
                     <div id="countdown" class="grid grid-cols-4 gap-2 md:gap-4 max-w-lg mx-auto font-serif">
-                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md transform hover:-translate-y-1 transition duration-300">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-days" class="text-2xl md:text-3xl font-bold text-white block">00</span>
                             <span class="font-hind text-xs text-bengali-gold">দিন</span>
                         </div>
-                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md transform hover:-translate-y-1 transition duration-300">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-hours" class="text-2xl md:text-3xl font-bold text-white block">00</span>
                             <span class="font-hind text-xs text-bengali-gold">ঘণ্টা</span>
                         </div>
-                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md transform hover:-translate-y-1 transition duration-300">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-minutes" class="text-2xl md:text-3xl font-bold text-white block">00</span>
                             <span class="font-hind text-xs text-bengali-gold">মিনিট</span>
                         </div>
-                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md transform hover:-translate-y-1 transition duration-300">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-seconds" class="text-2xl md:text-3xl font-bold text-white block">00</span>
                             <span class="font-hind text-xs text-bengali-gold">সেকেন্ড</span>
                         </div>
@@ -431,51 +383,44 @@
                 </div>
             </section>
 
-            <!-- 3 COMPACT CARDS (MODIFIED TO 1:1 SQUARE ASPECT RATIO, 0 BORDER-RADIUS) -->
             <section class="py-10 px-4 max-w-2xl mx-auto space-y-6">
-                
-                <div onclick="switchPage('page-story')" class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center cursor-pointer transform hover:scale-[1.02] transition duration-500 group" style="background-image: url('./story-card.jpg');">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500"></div>
-                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end relative z-10">
+                <div onclick="switchPage('page-story')" class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end cursor-pointer transform hover:scale-[1.02] transition duration-700 group">
+                    <img src="./story-card.jpg" alt="আমাদের পথ চলা শুরু" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition duration-700"></div>
+                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end absolute bottom-0 left-0 right-0 z-10">
                         <div>
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">আমাদের পথ চলা শুরু</h4>
                             <p class="font-hind text-xs opacity-90 mt-0.5">আমাদের ভালোবাসার মিষ্টি কিছু কথা</p>
                         </div>
-                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">
-                            এখানে ট্যাপ করুন
-                        </div>
+                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                     </div>
                 </div>
 
-                <div onclick="switchPage('page-family')" class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center cursor-pointer transform hover:scale-[1.02] transition duration-500 group" style="background-image: url('./family-card.jpg');">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500"></div>
-                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end relative z-10">
+                <div onclick="switchPage('page-family')" class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end cursor-pointer transform hover:scale-[1.02] transition duration-700 group">
+                    <img src="./family-card.jpg" alt="পরিবার পরিচিতি" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition duration-700"></div>
+                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end absolute bottom-0 left-0 right-0 z-10">
                         <div>
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">পরিবার পরিচিতি</h4>
                             <p class="font-hind text-xs opacity-90 mt-0.5">আমাদের উভয় পরিবারের শ্রদ্ধেয় সদস্যবৃন্দ</p>
                         </div>
-                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">
-                            এখানে ট্যাপ করুন
-                        </div>
+                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                     </div>
                 </div>
 
-                <div onclick="switchPage('page-card')" class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center cursor-pointer transform hover:scale-[1.02] transition duration-500 group" style="background-image: url('./wedding-card.jpg');">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500"></div>
-                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end relative z-10">
+                <div onclick="switchPage('page-card')" class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end cursor-pointer transform hover:scale-[1.02] transition duration-700 group">
+                    <img src="./wedding-card.jpg" alt="বিয়ের কার্ড" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition duration-700"></div>
+                    <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white flex justify-between items-end absolute bottom-0 left-0 right-0 z-10">
                         <div>
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">বিয়ের কার্ড</h4>
                             <p class="font-hind text-xs opacity-90 mt-0.5">ডিজিটাল নিমন্ত্রণ পত্র দেখুন ও ডাউনলোড করুন</p>
                         </div>
-                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">
-                            এখানে ট্যাপ করুন
-                        </div>
+                        <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                     </div>
                 </div>
-
             </section>
 
-            <!-- MANGLIK PARBA (MODIFIED TO 1:1 SQUARE ASPECT RATIO, 0 BORDER-RADIUS) -->
             <section class="py-10 px-4 max-w-2xl mx-auto">
                 <div class="text-center mb-8 reveal-on-scroll">
                     <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
@@ -484,22 +429,25 @@
                 </div>
 
                 <div class="space-y-6">
-                    <div class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center transform hover:scale-[1.01] transition duration-500" style="background-image: url('./gaye-holud.jpg');">
-                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white">
+                    <div class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end transform hover:scale-[1.01] transition duration-700">
+                        <img src="./gaye-holud.jpg" alt="গায়ে হলুদ" class="w-full h-full object-cover">
+                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white absolute bottom-0 left-0 right-0">
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">গায়ে হলুদ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৪শে অঘ্রাণ / ১১ই ডিসেম্বর, ২০২৬ (শুক্রবার)</p>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center transform hover:scale-[1.01] transition duration-500" style="background-image: url('./wedding-ceremony.jpg');">
-                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white">
+                    <div class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end transform hover:scale-[1.01] transition duration-700">
+                        <img src="./wedding-ceremony.jpg" alt="শুভ বিবাহ" class="w-full h-full object-cover">
+                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white absolute bottom-0 left-0 right-0">
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">শুভ বিবাহ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll homepage-square-tile relative shadow-xl flex items-end bg-cover bg-center transform hover:scale-[1.01] transition duration-500" style="background-image: url('./reception.jpg');">
-                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white">
+                    <div class="reveal-on-scroll home-square-tile relative shadow-xl flex items-end transform hover:scale-[1.01] transition duration-700">
+                        <img src="./reception.jpg" alt="প্রীতিভোজ" class="w-full h-full object-cover">
+                        <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 w-full text-white absolute bottom-0 left-0 right-0">
                             <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">প্রীতিভোজ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
                         </div>
@@ -507,7 +455,6 @@
                 </div>
             </section>
 
-            <!-- PRE-WEDDING GALLERY (MODIFIED TO 1:1 SQUARE ASPECT RATIO, 0 BORDER-RADIUS) -->
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-8">
                     <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ প্রি-ওয়েডিং মুহূর্ত ॥</span>
@@ -516,39 +463,52 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="homepage-square-tile overflow-hidden shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-1.jpg')">
-                        <img id="prewedding-img-1" src="./prewedding-1.jpg" alt="Pre-Wedding Photo 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-1.jpg')">
+                        <img src="./prewedding-1.jpg" alt="Pre-Wedding Photo 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <div class="homepage-square-tile overflow-hidden shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-2.jpg')">
-                        <img id="prewedding-img-2" src="./prewedding-2.jpg" alt="Pre-Wedding Photo 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-2.jpg')">
+                        <img src="./prewedding-2.jpg" alt="Pre-Wedding Photo 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <div class="homepage-square-tile overflow-hidden shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-3.jpg')">
-                        <img id="prewedding-img-3" src="./prewedding-3.jpg" alt="Pre-Wedding Photo 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-3.jpg')">
+                        <img src="./prewedding-3.jpg" alt="Pre-Wedding Photo 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
                 </div>
             </section>
 
-            <!-- VENUE & MAP -->
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-6">
                     <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ বিবাহ স্থান ॥</span>
                     <h3 class="text-3xl font-tiro font-bold text-maroon-900">স্থান ও মানচিত্র</h3>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-xl border border-bengali-gold/30 text-center transform hover:shadow-2xl transition duration-300">
+                <div class="bg-white rounded-2xl p-6 shadow-xl border border-bengali-gold/30 text-center transform hover:shadow-2xl transition duration-500">
                     <h4 class="text-2xl font-tiro font-bold text-maroon-900 mb-1">প্রীতিভোজের স্থান: নিজ বাসভবন</h4>
-                    <p class="font-hind text-gray-700 mb-4">তাঁতিশাল, হুগলি, পশ্চিমবঙ্গ</p>
+                    <p class="font-hind text-gray-800 text-lg font-medium mb-4">তাঁতিশাল (নাগপাড়া), হেলান , হুগলি, পশ্চিমবঙ্গ</p>
 
-                    <div class="w-full h-56 rounded-xl border border-gray-200 mb-4 bg-amber-50 flex flex-col items-center justify-center text-maroon-900"><i class="fas fa-map-marked-alt text-5xl text-bengali-crimson mb-3"></i><p class="font-tiro text-xl font-bold">তাঁতিশাল, হুগলি</p><p class="font-hind text-sm">Google Maps-এ অবস্থান দেখতে নিচের বোতামে ক্লিক করুন</p></div>
+                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="block group relative w-full h-64 rounded-xl overflow-hidden border-2 border-bengali-gold/50 mb-4 shadow-md cursor-pointer">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.258908359708!2d87.8631!3d22.8294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8489c79e60f0d%3A0x6b3017a58a98a005!2sTantisal%2C%20West%20Bengal%20712412!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; pointer-events: none;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition duration-300 flex items-end justify-center pb-3">
+                            <span class="bg-maroon-900/90 text-bengali-gold font-hind text-xs px-3 py-1.5 rounded-full border border-bengali-gold shadow-md">
+                                <i class="fas fa-external-link-alt mr-1"></i> Google Maps-এ খুলতে ট্যাপ করুন
+                            </span>
+                        </div>
+                    </a>
 
-                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" class="inline-flex items-center space-x-2 bg-bengali-crimson text-bengali-gold font-hind font-bold px-6 py-2.5 rounded-full shadow hover:bg-maroon-900 transition transform hover:scale-105">
+                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 bg-bengali-crimson text-bengali-gold font-hind font-bold px-6 py-2.5 rounded-full shadow hover:bg-maroon-900 transition transform hover:scale-105">
                         <i class="fas fa-directions"></i>
                         <span>প্রীতিভোজের স্থানে যাওয়ার দিকনির্দেশ</span>
                     </a>
                 </div>
             </section>
 
-            <!-- RSVP FORM -->
             <section class="py-10 px-4 max-w-xl mx-auto reveal-scale">
                 <div class="bg-white rounded-2xl p-6 shadow-xl border border-bengali-gold/40">
                     <h3 class="text-2xl font-tiro font-bold text-maroon-900 text-center mb-4">আপনার খাবারের পছন্দ জানান</h3>
@@ -588,8 +548,7 @@
                     <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900 mb-3">আমাদের পথ চলা শুরু</h2>
                     <div class="w-20 h-1 bg-bengali-gold mx-auto rounded-full"></div>
                 </div>
-                <!-- INNER PAGE IMAGE: PRESERVE ORIGINAL ASPECT RATIO -->
-                <img src="./story-page.jpg" alt="আমাদের পথ চলা" class="page-stagger inner-page-image shadow-none" loading="lazy">
+                <img src="./story-page.jpg" alt="আমাদের পথ চলা" class="page-stagger w-full shadow-none" loading="lazy">
                 <p class="page-stagger font-hind text-gray-800 text-base md:text-lg leading-loose text-center md:px-8">
                     দুটি ভিন্ন পথের দুটি মানুষ যখন ভাগ্যের টানে একে অপরের কাছাকাছি আসে, তখন শুরু হয় এক নতুন গল্প। ছোট ছোট মুহূর্ত, হাসি, বোঝাপড়া আর পরিবারের ভালোবাসার হাত ধরে আজ আমরা আমাদের জীবনের সবচেয়ে সুন্দর অধ্যায়ে প্রবেশ করতে চলেছি। আপনাদের সকলের আশীর্বাদ আমাদের এই পথ চলাকে আরও মধুর করে তুলবে।
                 </p>
@@ -612,15 +571,13 @@
                 <div class="page-stagger space-y-3">
                     <h3 class="text-2xl font-tiro font-bold text-bengali-crimson">বরপক্ষ</h3>
                     <div class="family-img-container cursor-pointer" onclick="openLightbox('./groom-family.jpg')">
-                        <!-- INNER PAGE IMAGE: PRESERVE ORIGINAL ASPECT RATIO -->
-                        <img id="groom-family-img" src="./groom-family.jpg" alt="বরের পরিবার" class="inner-page-image" loading="lazy">
+                        <img src="./groom-family.jpg" alt="বরের পরিবার" loading="lazy">
                     </div>
                 </div>
                 <div class="page-stagger space-y-3">
                     <h3 class="text-2xl font-tiro font-bold text-bengali-crimson">কনেপক্ষ</h3>
                     <div class="family-img-container cursor-pointer" onclick="openLightbox('./bride-family.jpg')">
-                        <!-- INNER PAGE IMAGE: PRESERVE ORIGINAL ASPECT RATIO -->
-                        <img id="bride-family-img" src="./bride-family.jpg" alt="কনের পরিবার" class="inner-page-image" loading="lazy">
+                        <img src="./bride-family.jpg" alt="কনের পরিবার" loading="lazy">
                     </div>
                 </div>
                 <div class="page-stagger family-copy font-hind text-gray-800 space-y-4 pt-5">
@@ -630,7 +587,7 @@
                         <p><strong>ঠাকুমা:</strong> শ্রীমতী ছবি রানী নাগ</p>
                         <p><strong>বাবা:</strong> সমীর কুমার নাগ</p>
                         <p><strong>মা:</strong> রিতা নাগ</p>
-                        <p><strong>ঠিকানা:</strong> তাঁতিশাল, হুগলি</p>
+                        <p><strong>ঠিকানা:</strong> তাঁতিশাল (নাগপাড়া), হেলান , হুগলি</p>
                     </div>
                     <div class="py-3 border-t border-bengali-gold/30">
                         <h4 class="font-tiro text-xl font-bold text-bengali-crimson mb-2">পাত্রী পরিবারের পরিচয়</h4>
@@ -645,7 +602,7 @@
                     <label for="family-photo-upload" class="block font-tiro text-lg font-bold text-bengali-crimson mb-2">পরিবারের ছবি যোগ করুন</label>
                     <input id="family-photo-upload" class="photo-upload" type="file" accept="image/png,image/jpeg,image/webp">
                     <p class="font-hind text-xs text-gray-600 mt-2">এটি আপনার ব্রাউজারে দেখা যাবে—সবার জন্য প্রকাশ করতে ছবিটি ওয়েবসাইটের root folder-এ family-photo.jpg নামে যোগ করুন।</p>
-                    <img id="family-upload-preview" class="upload-preview inner-page-image hidden" alt="আপলোড করা পরিবারের ছবির প্রিভিউ">
+                    <img id="family-upload-preview" class="upload-preview hidden" alt="আপলোড করা পরিবারের ছবির প্রিভিউ">
                 </div>
             </div>
             <div class="max-w-2xl mx-auto px-4 pt-7">
@@ -668,18 +625,16 @@
                     <p class="mt-4">গায়ে হলুদ: ২৪শে অঘ্রাণ / ১১ই ডিসেম্বর ২০২৬, শুক্রবার</p>
                     <p>শুভ বিবাহ: ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর ২০২৬, রবিবার</p>
                     <p>প্রীতিভোজ: ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর ২০২৬, রবিবার</p>
-                    <p>নিজ বাসভবন, তাঁতিশাল, হুগলি</p>
+                    <p>নিজ বাসভবন, তাঁতিশাল (নাগপাড়া), হেলান , হুগলি</p>
                 </div>
                 <div class="page-stagger pt-4 border-t border-bengali-gold/40">
                     <label for="wedding-card-upload" class="block font-tiro text-xl font-bold text-bengali-crimson mb-2">আসল বিয়ের কার্ডের ছবি যোগ করুন</label>
                     <input id="wedding-card-upload" class="photo-upload" type="file" accept="image/png,image/jpeg,image/webp">
                     <p class="font-hind text-xs text-gray-600 mt-2 text-left">আপলোড করা ছবি শুধু এই ব্রাউজারে প্রিভিউ হবে। সকল দর্শকের জন্য দেখাতে ফাইলটি wedding-card-final.jpg নামে ওয়েবসাইটের root folder-এ রাখুন।</p>
-                    <!-- INNER PAGE IMAGE: PRESERVE ORIGINAL ASPECT RATIO -->
-                    <img id="wedding-card-preview" src="./wedding-card-final.jpg" alt="বিয়ের কার্ডের প্রিভিউ" class="card-preview inner-page-image mt-4" onerror="this.style.display='none'">
+                    <img id="wedding-card-preview" src="./wedding-card-final.jpg" alt="বিয়ের কার্ডের প্রিভিউ" class="card-preview mt-4" onerror="this.style.display='none'">
                     <a id="wedding-card-download" href="./wedding-card-final.jpg" download="wedding-card-final.jpg" class="inline-flex items-center justify-center gap-2 mt-5 bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold font-tiro font-bold text-lg px-7 py-3 rounded-full border-2 border-bengali-gold shadow-lg transition">
                         <i class="fas fa-download"></i><span>বিয়ের কার্ড ডাউনলোড করুন</span>
                     </a>
-                    <p class="font-hind text-xs text-gray-600 mt-2">ডাউনলোডের জন্য website asset হিসেবে wedding-card-final.jpg যোগ করুন, অথবা নিজের নির্বাচিত ছবিটি আগে আপলোড করুন।</p>
                 </div>
             </div>
             <div class="max-w-2xl mx-auto px-4 pt-7">
@@ -689,7 +644,6 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
         <footer class="bg-maroon-900 text-bengali-gold py-10 px-4 text-center border-t-2 border-bengali-gold mt-12 shadow-inner">
             <h4 class="font-tiro text-2xl font-bold">অনিরুদ্ধ ♥ সুহিতা</h4>
             <p class="font-hind text-bengali-goldlight text-sm mt-1">আপনার উপস্থিতি আমাদের আনন্দকে দ্বিগুণ করে তুলবে।</p>
@@ -698,7 +652,6 @@
 
     </main>
 
-    <!-- LIGHTBOX PREVIEW MODAL -->
     <div id="image-modal" role="dialog" aria-modal="true" aria-label="ছবির পূর্বরূপ" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
         <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-bengali-gold text-3xl transition">
             <i class="fas fa-times"></i>
@@ -706,15 +659,9 @@
         <img id="modal-img-display" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl">
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
         let APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqQ40Wq0Dpljbq3nbS0hn_RQIAk16WL9GUtT-gk-bYISEwjDOy7Y57F1NaMYss4uRn/exec';
-
         let lastScrollPosition = 0;
-        let activePageId = 'page-home';
-        let navigationBusy = false;
-
-        const pageOrder = ['page-home', 'page-story', 'page-family', 'page-card'];
 
         window.addEventListener('DOMContentLoaded', () => {
             initPetals();
@@ -730,15 +677,11 @@
         let isAudioPlaying = false;
 
         function updateAudioIcon() {
-            const icon = document.getElementById('audio-icon');
             const button = document.getElementById('audio-btn');
-            if (icon) icon.className = 'fas fa-music text-base';
             if (button) button.setAttribute('aria-pressed', isAudioPlaying ? 'true' : 'false');
         }
 
-        let musicAutoplayTimer = null;
         let musicBubbleTimer = null;
-
         function showMusicTapBubble() {
             const bubble = document.getElementById('music-tap-bubble');
             if (!bubble || isAudioPlaying) return;
@@ -788,7 +731,7 @@
                 updateAudioIcon();
             });
 
-            musicAutoplayTimer = setTimeout(() => {
+            setTimeout(() => {
                 if (weddingAudio.readyState >= 2) {
                     attemptWeddingAutoplay();
                 } else {
@@ -804,11 +747,8 @@
             hideMusicTapBubble();
             if (!weddingAudio) return;
             try {
-                if (weddingAudio.paused) {
-                    await weddingAudio.play();
-                } else {
-                    weddingAudio.pause();
-                }
+                if (weddingAudio.paused) await weddingAudio.play();
+                else weddingAudio.pause();
             } catch (error) {
                 isAudioPlaying = false;
             }
@@ -816,114 +756,77 @@
         }
 
         window.addEventListener('pageshow', (event) => { if (event.persisted) attemptWeddingAutoplay(); });
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) attemptWeddingAutoplay();
-        });
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) attemptWeddingAutoplay(); });
 
         function initHistoryNavigation() {
-            if (!history.state) {
-                history.replaceState({ pageId: 'page-home' }, '', window.location.href);
-            }
-
+            if (!history.state) history.replaceState({ pageId: 'page-home' }, '', window.location.href);
             window.addEventListener('popstate', (event) => {
-                const targetPage = (event.state && event.state.pageId) ? event.state.pageId : 'page-home';
-                showPageWithoutPush(targetPage);
+                if (event.state && event.state.pageId) showPageWithoutPush(event.state.pageId, true);
+                else showPageWithoutPush('page-home', true);
             });
         }
 
-        /* STRICT HORIZONTAL NAVIGATION TRANSITIONS */
-        function animatePageChange(targetPageId, isBack = false) {
-            if (!targetPageId || targetPageId === activePageId || navigationBusy) return;
-            
-            const currentPage = document.getElementById(activePageId);
-            const nextPage = document.getElementById(targetPageId);
-            if (!nextPage) return;
+        let activePageId = 'page-home';
+        let navigationBusy = false;
 
+        function animatePageChange(targetPageId, isBack = false, restoreHomeScroll = false) {
+            const nextPage = document.getElementById(targetPageId);
+            if (!nextPage || targetPageId === activePageId || navigationBusy) return;
             navigationBusy = true;
+            const currentPage = document.getElementById(activePageId);
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             if (reducedMotion) {
                 if (currentPage) currentPage.classList.add('hidden');
                 nextPage.classList.remove('hidden');
                 activePageId = targetPageId;
-                if (targetPageId === 'page-home') {
-                    window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'auto' });
-                }
+                if (targetPageId === 'page-home' && restoreHomeScroll) window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
+                else window.scrollTo({ top: 0, behavior: 'auto' });
                 initScrollObserver();
                 navigationBusy = false;
                 return;
             }
 
-            // Determine direction: forward = slide out left, slide in right; back = slide out right, slide in left
-            const outClass = isBack ? 'slide-out-right' : 'slide-out-left';
-            const inClass = isBack ? 'slide-in-left' : 'slide-in-right';
-
-            // Clean up old classes
-            document.querySelectorAll('.page-view').forEach(p => {
-                p.classList.remove('slide-out-left', 'slide-in-right', 'slide-out-right', 'slide-in-left');
-            });
+            const currentOutClass = isBack ? 'slide-out-right' : 'slide-out-left';
+            const nextInClass = isBack ? 'slide-in-left' : 'slide-in-right';
 
             nextPage.classList.remove('hidden');
-            nextPage.classList.add(inClass);
-
-            if (currentPage) {
-                currentPage.classList.add(outClass);
-            }
-
-            if (targetPageId === 'page-home' && isBack) {
-                window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            nextPage.classList.add(nextInClass);
+            if (currentPage) currentPage.classList.add(currentOutClass);
 
             setTimeout(() => {
                 if (currentPage) {
                     currentPage.classList.add('hidden');
-                    currentPage.classList.remove(outClass);
+                    currentPage.classList.remove(currentOutClass);
                 }
-                nextPage.classList.remove(inClass);
+                nextPage.classList.remove(nextInClass);
                 activePageId = targetPageId;
+
+                if (targetPageId === 'page-home' && restoreHomeScroll) window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
+
                 initScrollObserver();
                 navigationBusy = false;
-            }, 450);
+            }, 680);
         }
 
         function switchPage(pageId, isHome = false) {
-            if (pageId === activePageId) return;
-            if (activePageId === 'page-home') {
-                lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-            }
-            const isBack = isHome || (pageId === 'page-home');
-            if (!isHome) {
-                history.pushState({ pageId: pageId }, '', '#' + pageId.replace('page-', ''));
-            } else {
-                history.pushState({ pageId: 'page-home' }, '', window.location.pathname);
-            }
-            animatePageChange(pageId, isBack);
+            lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            if (!isHome) history.pushState({ pageId: pageId }, '', '#' + pageId.replace('page-', ''));
+            animatePageChange(pageId, false, false);
         }
 
-        function showPageWithoutPush(pageId) {
-            const isBack = (pageId === 'page-home');
-            animatePageChange(pageId, isBack);
+        function showPageWithoutPush(pageId, isBack = false) {
+            animatePageChange(pageId, isBack, pageId === 'page-home');
         }
 
         function goBackToHome(fromPageId) {
-            if (history.state && history.state.pageId !== 'page-home') {
-                history.back();
-            } else {
-                switchPage('page-home', true);
-            }
+            if (history.state && history.state.pageId !== 'page-home') history.back();
+            else showPageWithoutPush('page-home', true);
         }
 
         function initScrollObserver() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -50px 0px',
-                threshold: 0.1
-            };
-
+            const observerOptions = { root: null, rootMargin: '0px 0px -40px 0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -939,12 +842,7 @@
         }
 
         function triggerFlowerExplosion() {
-            confetti({
-                particleCount: 100,
-                spread: 90,
-                origin: { y: 0.4 },
-                colors: ['#D4AF37', '#800020', '#FFD700', '#C8102E', '#FFA500']
-            });
+            confetti({ particleCount: 100, spread: 90, origin: { y: 0.4 }, colors: ['#D4AF37', '#800020', '#FFD700', '#C8102E', '#FFA500'] });
         }
 
         function initPetals() {
@@ -978,10 +876,8 @@
             }, 1000);
         }
 
-        // RSVP SUBMISSION VIA FETCH API
         async function handleFoodRSVP(e) {
             e.preventDefault();
-
             const selectedRadio = document.querySelector('input[name="food_pref"]:checked');
             if (!selectedRadio) return;
 
@@ -1018,7 +914,6 @@
             }
         }
 
-        // Browser-only image previews.
         const localImageUrls = [];
         function bindLocalImageUpload(inputId, previewId, downloadLinkId) {
             const input = document.getElementById(inputId);
@@ -1063,4 +958,3 @@
     </script>
 </body>
 </html>
-```
