@@ -25,16 +25,16 @@
                 extend: {
                     colors: {
                         maroon: {
-                            800: '#5C2C16',
-                            900: '#8B4513',
+                            800: '#5C0612',
+                            900: '#3D0007',
                         },
                         bengali: {
-                            crimson: '#6b2d14',
+                            crimson: '#800020',
                             gold: '#D4AF37',
                             goldlight: '#F3E5AB',
                             cream: '#FFFDD0',
-                            terracotta: '#A0522D',
-                            deepred: '#5C2C16',
+                            terracotta: '#C85A32',
+                            deepred: '#660000',
                             sand: '#F7F3E9'
                         }
                     },
@@ -51,7 +51,7 @@
     <style>
         body {
             font-family: 'Hind Siliguri', sans-serif;
-            background-color: #8B4513;
+            background-color: #3D0007;
             color: #333333;
             overflow-x: hidden;
         }
@@ -60,7 +60,7 @@
             background-color: #FFFDD0;
             background-image: 
                 radial-gradient(#D4AF37 0.75px, transparent 0.75px),
-                radial-gradient(#A0522D 0.75px, #FFFDD0 0.75px);
+                radial-gradient(#C85A32 0.75px, #FFFDD0 0.75px);
             background-size: 30px 30px;
             background-position: 0 0, 15px 15px;
         }
@@ -117,7 +117,7 @@
             object-fit: cover;
             object-position: center center;
             display: block;
-            filter: brightness(1.05) contrast(1.05) saturate(1.1);
+            filter: brightness(1.1) contrast(1.1) saturate(1.15);
             animation: heroImageReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
             will-change: transform, opacity;
         }
@@ -139,12 +139,13 @@
             height: 100%;
             object-fit: cover !important;
             border-radius: 0px !important;
-            filter: brightness(1.06) contrast(1.05) saturate(1.12);
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(1.12) contrast(1.1) saturate(1.2);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
         }
 
         .home-square-tile:hover img {
             transform: scale(1.05);
+            filter: brightness(1.18) contrast(1.12) saturate(1.25);
         }
 
         .family-img-container {
@@ -168,11 +169,11 @@
             object-fit: contain !important;
             border-radius: 0;
             box-shadow: none;
-            filter: brightness(1.05) contrast(1.05);
+            filter: brightness(1.08) contrast(1.08) saturate(1.1);
         }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #8B4513; }
+        ::-webkit-scrollbar-track { background: #3D0007; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
 
         @keyframes gentleZoom {
@@ -272,24 +273,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card-artwork { display:block; width:min(100%,560px); height:auto; margin:0 auto 14px; }
-
         .story-page-shell, .family-page-shell, .wedding-card-shell {
             max-width:850px; margin:0 auto; padding:clamp(18px,4vw,42px);
             background:linear-gradient(145deg,rgba(255,253,208,.97),rgba(247,243,233,.96));
             border-top:2px solid #D4AF37; border-bottom:2px solid #D4AF37;
-            box-shadow:0 18px 45px rgba(139,69,19,.15);
+            box-shadow:0 18px 45px rgba(61,0,7,.12);
         }
-        .story-page-shell img { width:100%; height:auto; max-height:72vh; object-fit:contain; filter: brightness(1.05); }
+        .story-page-shell img { width:100%; height:auto; max-height:72vh; object-fit:contain; filter: brightness(1.08) contrast(1.05); }
         .home-invitation-copy { max-width:760px; margin:12px auto 0; line-height:1.65; }
 
         .window-frame-container {
             background: #FFFDD0;
             border: 4px solid #D4AF37;
-            outline: 2px solid #8B4513;
+            outline: 2px solid #800020;
             outline-offset: -8px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(139,69,19,0.15);
+            box-shadow: 0 10px 25px rgba(61,0,7,0.15);
             position: relative;
             padding: 24px;
         }
@@ -356,7 +355,7 @@
     <!-- FIXED HEADER NAVBAR -->
     <header class="bg-maroon-900 text-bengali-gold py-4 px-6 border-b-2 border-bengali-gold fixed top-0 left-0 right-0 z-50 shadow-md flex justify-between items-center h-16">
         <div class="font-tiro font-bold text-xl md:text-2xl tracking-wider cursor-pointer" onclick="switchPage('page-home', true)">
-            অনিরুদ্ধ <span class="text-red-400">♥</span> সুহিতা
+            অনিরুদ্ধ <span class="text-red-500">♥</span> সুহিতা
         </div>
         <div id="audio-control" class="relative">
             <button type="button" onclick="toggleAudio(event)" id="audio-btn" aria-label="গান চালু বা বন্ধ করুন" aria-pressed="false" class="bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold border-2 border-bengali-gold w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition duration-300 transform hover:scale-110">
@@ -461,7 +460,7 @@
 
             <section class="py-10 px-4 max-w-2xl mx-auto text-center">
                 <div class="text-center mb-8 reveal-on-scroll">
-                    <span class="text-bengali-gold font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
                     <h3 class="text-3xl font-tiro font-bold text-maroon-900">মাঙ্গলিক পর্ব</h3>
                     <div class="w-20 h-1 bg-bengali-gold mx-auto mt-2 rounded-full"></div>
                 </div>
@@ -495,7 +494,7 @@
 
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-8">
-                    <span class="text-bengali-gold font-tiro text-lg font-bold">॥ প্রি-ওয়েডিং মুহূর্ত ॥</span>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ প্রি-ওয়েডিং মুহূর্ত ॥</span>
                     <h3 class="text-3xl font-tiro font-bold text-maroon-900">প্রি-ওয়েডিং গ্যালারি</h3>
                     <div class="w-20 h-1 bg-bengali-gold mx-auto mt-2 rounded-full"></div>
                 </div>
@@ -515,7 +514,7 @@
 
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-6">
-                    <span class="text-bengali-gold font-tiro text-lg font-bold">॥ বিবাহ স্থান ॥</span>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ বিবাহ স্থান ॥</span>
                     <h3 class="text-3xl font-tiro font-bold text-maroon-900">স্থান ও মানচিত্র</h3>
                 </div>
 
@@ -582,7 +581,7 @@
         <div id="page-story" class="page-view hidden">
             <div class="story-page-shell space-y-6">
                 <div class="page-stagger text-center">
-                    <span class="text-bengali-gold font-tiro text-lg">॥ আমাদের গল্প ॥</span>
+                    <span class="text-bengali-crimson font-tiro text-lg">॥ আমাদের গল্প ॥</span>
                     <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900 mb-3">আমাদের পথ চলা শুরু</h2>
                     <div class="w-20 h-1 bg-bengali-gold mx-auto rounded-full"></div>
                 </div>
@@ -602,7 +601,7 @@
         <div id="page-family" class="page-view hidden">
             <div class="family-page-shell space-y-8">
                 <div class="page-stagger text-center">
-                    <span class="text-bengali-gold font-tiro text-lg">॥ দুই পরিবারের বন্ধন ॥</span>
+                    <span class="text-bengali-crimson font-tiro text-lg">॥ দুই পরিবারের বন্ধন ॥</span>
                     <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900">পরিবার পরিচিতি</h2>
                     <div class="w-20 h-1 bg-bengali-gold mx-auto mt-3 rounded-full"></div>
                 </div>
@@ -661,11 +660,10 @@
             <div class="wedding-card-shell space-y-6 text-center">
                 <div class="page-stagger">
                     <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900 mb-3">বিয়ের কার্ড</h2>
-                    <img class="card-artwork" src="./wedding-heading.svg" alt="শ্রী শ্রী প্রজাপতয়ে নমঃ">
                 </div>
 
-                <!-- Interactive 3D Card Animation Container (Upper extra image removed) -->
-                <div class="page-stagger card-3d-wrapper py-4">
+                <!-- Interactive 3D Card Animation Container (Top SVG image completely removed) -->
+                <div class="page-stagger card-3d-wrapper py-2">
                     <div id="wedding-card-container" class="card-3d-container" onclick="toggleCardFlip()">
                         <!-- Front Face / Cover Page -->
                         <div class="card-face front relative">
