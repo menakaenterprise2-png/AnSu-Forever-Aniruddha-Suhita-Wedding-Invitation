@@ -19,48 +19,18 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        maroon: {
-                            800: '#5C0612',
-                            900: '#3D0007',
-                        },
-                        bengali: {
-                            crimson: '#800020',
-                            gold: '#D4AF37',
-                            goldlight: '#F3E5AB',
-                            cream: '#FFFDD0',
-                            terracotta: '#C85A32',
-                            deepred: '#660000',
-                            sand: '#F7F3E9'
-                        }
-                    },
-                    fontFamily: {
-                        tiro: ['"Tiro Bangla"', 'serif'],
-                        hind: ['"Hind Siliguri"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                        custom: ['"MyCustomBengaliFont"', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        /* Custom Font Face Setup (টিটিএফ ফন্টের জন্য) */
+        /* সরাসরি রুটে থাকা টিটিএফ ফন্টের কনফিগারেশন */
         @font-face {
-            font-family: 'MyCustomBengaliFont';
-            src: url('./fonts/your-font-file.ttf') format('truetype');
+            font-family: 'CustomBengali';
+            src: url('./font-bengali.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
 
         body {
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'CustomBengali', 'Hind Siliguri', sans-serif;
             background-color: #3D0007;
             color: #333333;
             overflow-x: hidden;
@@ -158,7 +128,7 @@
             transform: scale(1.03);
         }
 
-        /* লেখার নিচের কাস্টম শ্যাডো গ্রেডিয়েন্ট */
+        /* কাস্টম গ্রেডিয়েন্ট শেড (লেখার সুবিধার জন্য) */
         .gradient-overlay-short {
             position: absolute;
             bottom: 0;
@@ -376,7 +346,7 @@
         }
     </style>
 </head>
-<body class="relative min-h-screen text-gray-800 antialiased pt-16 font-custom">
+<body class="relative min-h-screen text-gray-800 antialiased pt-16">
 
     <!-- FLOATING PETALS CONTAINER -->
     <div id="petals-container" class="fixed inset-0 pointer-events-none overflow-hidden z-30"></div>
@@ -452,7 +422,7 @@
                 </div>
             </section>
 
-            <!-- 3 Main Interactive Cards with custom bottom text overlay -->
+            <!-- 3 Main Interactive Cards -->
             <section class="py-10 px-4 max-w-2xl mx-auto space-y-6">
                 <div onclick="switchPage('page-story')" class="reveal-on-scroll home-square-tile shadow-xl cursor-pointer transform hover:scale-[1.03] transition duration-500">
                     <img src="./story-card.jpg" alt="আমাদের পথ চলা শুরু">
@@ -497,7 +467,7 @@
                 </div>
             </section>
 
-            <!-- Schedule Sections maintaining matching short gradient overlay -->
+            <!-- Schedule Sections -->
             <section class="py-10 px-4 max-w-2xl mx-auto text-center">
                 <div class="text-center mb-8 reveal-on-scroll">
                     <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
@@ -746,7 +716,7 @@
 
     </main>
 
-    <div id="image-modal" role="dialog" aria-modal="true" aria-label="ছbris পূর্বরূপ" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
+    <div id="image-modal" role="dialog" aria-modal="true" aria-label="ছবির পূর্বরূপ" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
         <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-bengali-gold text-3xl transition">
             <i class="fas fa-times"></i>
         </button>
