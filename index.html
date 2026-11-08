@@ -19,40 +19,10 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        maroon: {
-                            800: '#5C0612',
-                            900: '#3D0007',
-                        },
-                        bengali: {
-                            crimson: '#800020',
-                            gold: '#D4AF37',
-                            goldlight: '#F3E5AB',
-                            cream: '#FFFDD0',
-                            terracotta: '#C85A32',
-                            deepred: '#660000',
-                            sand: '#F7F3E9'
-                        }
-                    },
-                    fontFamily: {
-                        tiro: ['"Tiro Bangla"', 'serif'],
-                        hind: ['"Hind Siliguri"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                        custom: ['"CustomBengali"', '"Hind Siliguri"', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        /* Custom Font Face Setup */
+        /* Custom Font Face Rule */
         @font-face {
-            font-family: 'CustomBengali';
+            font-family: 'CustomBengaliFont';
             src: url('./font-bengali.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
@@ -60,7 +30,7 @@
         }
 
         body {
-            font-family: 'CustomBengali', 'Hind Siliguri', sans-serif;
+            font-family: 'CustomBengaliFont', 'Hind Siliguri', sans-serif;
             background-color: #3D0007;
             color: #333333;
             overflow-x: hidden;
@@ -127,7 +97,7 @@
             object-fit: cover;
             object-position: center center;
             display: block;
-            filter: brightness(1.03) contrast(1.03) saturate(1.05);
+            filter: brightness(1.05) contrast(1.05);
             animation: heroImageReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
             will-change: transform, opacity;
         }
@@ -150,33 +120,34 @@
             height: 100%;
             object-fit: cover !important;
             border-radius: 0px !important;
-            filter: brightness(1.03) contrast(1.03) saturate(1.05);
+            filter: brightness(1.05) contrast(1.05);
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .home-square-tile:hover img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
-        /* লেখার নিচে শর্ট গ্রেডিয়েন্ট ওভারলে */
+        /* লেখার সুরক্ষার জন্য শর্ট সফট শ্যাডো গ্রেডিয়েন্ট */
         .gradient-overlay-short {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 40%;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+            height: 45%;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
             pointer-events: none;
-            z-index: 10;
+            z-index: 1;
         }
 
         .tile-content-wrapper {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 20;
-            padding: 1.25rem;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
         }
 
         .family-img-container {
@@ -200,7 +171,7 @@
             object-fit: contain !important;
             border-radius: 0;
             box-shadow: none;
-            filter: brightness(1.03) contrast(1.03);
+            filter: brightness(1.05);
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -235,7 +206,7 @@
             border: 1px solid #D4AF37;
             border-radius: 9999px;
             padding: 7px 13px;
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'CustomBengaliFont', 'Hind Siliguri', sans-serif;
             font-size: 13px;
             font-weight: 700;
             box-shadow: 0 5px 18px rgba(0,0,0,.22);
@@ -310,7 +281,7 @@
             border-top:2px solid #D4AF37; border-bottom:2px solid #D4AF37;
             box-shadow:0 18px 45px rgba(61,0,7,.12);
         }
-        .story-page-shell img { width:100%; height:auto; max-height:72vh; object-fit:contain; filter: brightness(1.03); }
+        .story-page-shell img { width:100%; height:auto; max-height:72vh; object-fit:contain; filter: brightness(1.05); }
         .home-invitation-copy { max-width:760px; margin:12px auto 0; line-height:1.65; }
 
         .window-frame-container {
@@ -374,6 +345,35 @@
             }
         }
     </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            800: '#5C0612',
+                            900: '#3D0007',
+                        },
+                        bengali: {
+                            crimson: '#800020',
+                            gold: '#D4AF37',
+                            goldlight: '#F3E5AB',
+                            cream: '#FFFDD0',
+                            terracotta: '#C85A32',
+                            deepred: '#660000',
+                            sand: '#F7F3E9'
+                        }
+                    },
+                    fontFamily: {
+                        tiro: ['"CustomBengaliFont"', '"Tiro Bangla"', 'serif'],
+                        hind: ['"CustomBengaliFont"', '"Hind Siliguri"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="relative min-h-screen text-gray-800 antialiased pt-16">
 
@@ -384,12 +384,12 @@
     <audio id="wedding-audio" src="wedding-song.mp3" loop preload="auto" playsinline></audio>
 
     <!-- FIXED HEADER NAVBAR -->
-    <header class="bg-[#3D0007] text-[#D4AF37] py-4 px-6 border-b-2 border-[#D4AF37] fixed top-0 left-0 right-0 z-50 shadow-md flex justify-between items-center h-16">
+    <header class="bg-maroon-900 text-bengali-gold py-4 px-6 border-b-2 border-bengali-gold fixed top-0 left-0 right-0 z-50 shadow-md flex justify-between items-center h-16">
         <div class="font-tiro font-bold text-xl md:text-2xl tracking-wider cursor-pointer" onclick="switchPage('page-home', true)">
             অনিরুদ্ধ <span class="text-red-500">♥</span> সুহিতা
         </div>
         <div id="audio-control" class="relative">
-            <button type="button" onclick="toggleAudio(event)" id="audio-btn" aria-label="গান চালু বা বন্ধ করুন" aria-pressed="false" class="bg-[#800020] hover:bg-[#3D0007] text-[#D4AF37] border-2 border-[#D4AF37] w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition duration-300 transform hover:scale-110">
+            <button type="button" onclick="toggleAudio(event)" id="audio-btn" aria-label="গান চালু বা বন্ধ করুন" aria-pressed="false" class="bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold border-2 border-bengali-gold w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition duration-300 transform hover:scale-110">
                 <i id="audio-icon" class="fas fa-music text-base"></i>
             </button>
             <div id="music-tap-bubble" class="music-tap-bubble">এখানে ট্যাপ করুন</div>
@@ -403,49 +403,49 @@
         <div id="page-home" class="page-view">
             
             <section class="w-full relative reveal-on-scroll">
-                <div class="relative w-full overflow-hidden flex justify-center bg-[#3D0007]">
+                <div class="relative w-full overflow-hidden flex justify-center bg-maroon-900">
                     <img id="hero-img" src="./hero.jpg" alt="Bengali Bride & Groom">
-                    <div class="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-[#3D0007] via-[#3D0007]/50 to-transparent pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-maroon-900 via-maroon-900/50 to-transparent pointer-events-none"></div>
                 </div>
                 
-                <div class="bg-[#3D0007] text-[#D4AF37] py-6 px-4 text-center border-b-2 border-[#D4AF37] relative z-10 -mt-1 shadow-xl">
+                <div class="bg-maroon-900 text-bengali-gold py-6 px-4 text-center border-b-2 border-bengali-gold relative z-10 -mt-1 shadow-xl">
                     <h1 class="text-3xl md:text-5xl font-tiro font-bold tracking-wide">অনিরুদ্ধ ও সুহিতা</h1>
-                    <p class="font-tiro text-[#F3E5AB] text-xl md:text-2xl mt-3 font-bold">শুভ বিবাহ</p>
-                    <p class="home-invitation-copy font-hind text-[#F3E5AB] text-sm md:text-base mt-2 font-medium opacity-95">
+                    <p class="font-tiro text-bengali-goldlight text-xl md:text-2xl mt-3 font-bold">শুভ বিবাহ</p>
+                    <p class="home-invitation-copy font-hind text-bengali-goldlight text-sm md:text-base mt-2 font-medium opacity-95">
                         আমাদের জীবনের এই বিশেষ দিনে আপনার সপরিবারে উপস্থিতি একান্ত কাম্য।
                     </p>
                 </div>
             </section>
 
-            <section class="py-5 px-4 bg-[#3D0007] text-[#D4AF37] text-center border-b-2 border-[#D4AF37]">
+            <section class="py-5 px-4 bg-maroon-900 text-bengali-gold text-center border-b-2 border-bengali-gold">
                 <div class="wedding-date-pulse">
-                    <p class="font-tiro text-lg md:text-xl font-bold text-[#F3E5AB]">শুভ বিবাহ</p>
+                    <p class="font-tiro text-lg md:text-xl font-bold text-bengali-goldlight">শুভ বিবাহ</p>
                     <p class="font-tiro text-2xl md:text-3xl font-bold text-white mt-1">২৪শে অগ্রহায়ণ / ১১ই ডিসেম্বর, ২০২৬ (শুক্রবার)</p>
                 </div>
             </section>
 
-            <section class="py-10 px-4 bg-[#3D0007] text-[#D4AF37] border-b-2 border-[#D4AF37] text-center relative reveal-scale">
+            <section class="py-10 px-4 bg-maroon-900 text-bengali-gold border-b-2 border-bengali-gold text-center relative reveal-scale">
                 <div class="max-w-3xl mx-auto">
                     <h3 class="font-tiro text-2xl md:text-3xl font-bold mb-2">প্রীতিভোজের দিন</h3>
                     <p class="text-2xl md:text-4xl font-tiro font-bold text-white mb-1">২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
-                    <p class="text-lg md:text-xl font-hind text-[#F3E5AB] mb-6">সন্ধ্যা ৬:০০ ঘটিকা</p>
+                    <p class="text-lg md:text-xl font-hind text-bengali-goldlight mb-6">সন্ধ্যা ৬:০০ ঘটিকা</p>
 
                     <div id="countdown" class="grid grid-cols-4 gap-2 md:gap-4 max-w-lg mx-auto font-serif">
-                        <div class="bg-[#800020] border border-[#D4AF37] rounded-xl p-3 text-center shadow-md">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-days" class="text-2xl md:text-3xl font-bold text-white block">00</span>
-                            <span class="font-hind text-xs text-[#D4AF37]">দিন</span>
+                            <span class="font-hind text-xs text-bengali-gold">দিন</span>
                         </div>
-                        <div class="bg-[#800020] border border-[#D4AF37] rounded-xl p-3 text-center shadow-md">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-hours" class="text-2xl md:text-3xl font-bold text-white block">00</span>
-                            <span class="font-hind text-xs text-[#D4AF37]">ঘণ্টা</span>
+                            <span class="font-hind text-xs text-bengali-gold">ঘণ্টা</span>
                         </div>
-                        <div class="bg-[#800020] border border-[#D4AF37] rounded-xl p-3 text-center shadow-md">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-minutes" class="text-2xl md:text-3xl font-bold text-white block">00</span>
-                            <span class="font-hind text-xs text-[#D4AF37]">মিনিট</span>
+                            <span class="font-hind text-xs text-bengali-gold">মিনিট</span>
                         </div>
-                        <div class="bg-[#800020] border border-[#D4AF37] rounded-xl p-3 text-center shadow-md">
+                        <div class="bg-bengali-crimson border border-bengali-gold rounded-xl p-3 text-center shadow-md">
                             <span id="cd-seconds" class="text-2xl md:text-3xl font-bold text-white block">00</span>
-                            <span class="font-hind text-xs text-[#D4AF37]">সেকেন্ড</span>
+                            <span class="font-hind text-xs text-bengali-gold">সেকেন্ড</span>
                         </div>
                     </div>
                 </div>
@@ -459,10 +459,10 @@
                     <div class="tile-content-wrapper text-white">
                         <div class="flex justify-between items-end">
                             <div>
-                                <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">আমাদের পথ চলা শুরু</h4>
+                                <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">আমাদের পথ চলা শুরু</h4>
                                 <p class="font-hind text-xs opacity-90 mt-0.5">আমাদের ভালোবাসার মিষ্টি কিছু কথা</p>
                             </div>
-                            <div class="tap-hint bg-[#800020]/95 border border-[#D4AF37] rounded-full px-3 py-2 text-[#D4AF37] shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
+                            <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                         </div>
                     </div>
                 </div>
@@ -473,10 +473,10 @@
                     <div class="tile-content-wrapper text-white">
                         <div class="flex justify-between items-end">
                             <div>
-                                <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">পরিবার পরিচিতি</h4>
+                                <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">পরিবার পরিচিতি</h4>
                                 <p class="font-hind text-xs opacity-90 mt-0.5">আমাদের উভয় পরিবারের শ্রদ্ধেয় সদস্যবৃন্দ</p>
                             </div>
-                            <div class="tap-hint bg-[#800020]/95 border border-[#D4AF37] rounded-full px-3 py-2 text-[#D4AF37] shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
+                            <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                         </div>
                     </div>
                 </div>
@@ -487,10 +487,10 @@
                     <div class="tile-content-wrapper text-white">
                         <div class="flex justify-between items-end">
                             <div>
-                                <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">বিয়ের কার্ড</h4>
+                                <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">বিয়ের কার্ড</h4>
                                 <p class="font-hind text-xs opacity-90 mt-0.5">ডিজিটাল নিমন্ত্রণ পত্র দেখুন ও ডাউনলোড করুন</p>
                             </div>
-                            <div class="tap-hint bg-[#800020]/95 border border-[#D4AF37] rounded-full px-3 py-2 text-[#D4AF37] shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
+                            <div class="tap-hint bg-bengali-crimson/95 border border-bengali-gold rounded-full px-3 py-2 text-bengali-gold shadow-lg font-hind text-xs font-bold whitespace-nowrap">এখানে ট্যাপ করুন</div>
                         </div>
                     </div>
                 </div>
@@ -499,9 +499,9 @@
             <!-- Schedule Sections -->
             <section class="py-10 px-4 max-w-2xl mx-auto text-center">
                 <div class="text-center mb-8 reveal-on-scroll">
-                    <span class="text-[#800020] font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
-                    <h3 class="text-3xl font-tiro font-bold text-[#3D0007]">মাঙ্গলিক পর্ব</h3>
-                    <div class="w-20 h-1 bg-[#D4AF37] mx-auto mt-2 rounded-full"></div>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ অনুষ্ঠান সূচী ॥</span>
+                    <h3 class="text-3xl font-tiro font-bold text-maroon-900">মাঙ্গলিক পর্ব</h3>
+                    <div class="w-20 h-1 bg-bengali-gold mx-auto mt-2 rounded-full"></div>
                 </div>
 
                 <div class="space-y-6">
@@ -509,7 +509,7 @@
                         <img src="./gaye-holud.jpg" alt="গায়ে হলুদ">
                         <div class="gradient-overlay-short"></div>
                         <div class="tile-content-wrapper text-white text-left">
-                            <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">গায়ে হলুদ</h4>
+                            <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">গায়ে হলুদ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৪শে অঘ্রাণ / ১১ই ডিসেম্বর, ২০২৬ (শুক্রবার)</p>
                         </div>
                     </div>
@@ -518,7 +518,7 @@
                         <img src="./wedding-ceremony.jpg" alt="শুভ বিবাহ">
                         <div class="gradient-overlay-short"></div>
                         <div class="tile-content-wrapper text-white text-left">
-                            <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">শুভ বিবাহ</h4>
+                            <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">শুভ বিবাহ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
                         <img src="./reception.jpg" alt="প্রীতিভোজ">
                         <div class="gradient-overlay-short"></div>
                         <div class="tile-content-wrapper text-white text-left">
-                            <h4 class="text-2xl font-tiro font-bold text-[#F3E5AB]">প্রীতিভোজ</h4>
+                            <h4 class="text-2xl font-tiro font-bold text-bengali-goldlight">প্রীতিভোজ</h4>
                             <p class="font-hind text-sm opacity-90"><i class="far fa-calendar-alt mr-1"></i> ২৬শে অঘ্রাণ / ১৩ই ডিসেম্বর, ২০২৬ (রবিবার)</p>
                         </div>
                     </div>
@@ -536,19 +536,19 @@
 
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-8">
-                    <span class="text-[#800020] font-tiro text-lg font-bold">॥ প্রি-ওয়েডিং মুহূর্ত ॥</span>
-                    <h3 class="text-3xl font-tiro font-bold text-[#3D0007]">প্রি-ওয়েডিং গ্যালারি</h3>
-                    <div class="w-20 h-1 bg-[#D4AF37] mx-auto mt-2 rounded-full"></div>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ প্রি-ওয়েডিং মুহূর্ত ॥</span>
+                    <h3 class="text-3xl font-tiro font-bold text-maroon-900">প্রি-ওয়েডিং গ্যালারি</h3>
+                    <div class="w-20 h-1 bg-bengali-gold mx-auto mt-2 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="home-square-tile shadow-md cursor-pointer border border-[#D4AF37]/30 group" onclick="openLightbox('./prewedding-1.jpg')">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-1.jpg')">
                         <img src="./prewedding-1.jpg" alt="Pre-Wedding Photo 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <div class="home-square-tile shadow-md cursor-pointer border border-[#D4AF37]/30 group" onclick="openLightbox('./prewedding-2.jpg')">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-2.jpg')">
                         <img src="./prewedding-2.jpg" alt="Pre-Wedding Photo 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <div class="home-square-tile shadow-md cursor-pointer border border-[#D4AF37]/30 group" onclick="openLightbox('./prewedding-3.jpg')">
+                    <div class="home-square-tile shadow-md cursor-pointer border border-bengali-gold/30 group" onclick="openLightbox('./prewedding-3.jpg')">
                         <img src="./prewedding-3.jpg" alt="Pre-Wedding Photo 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
                 </div>
@@ -556,15 +556,15 @@
 
             <section class="py-10 px-4 max-w-2xl mx-auto reveal-on-scroll">
                 <div class="text-center mb-6">
-                    <span class="text-[#800020] font-tiro text-lg font-bold">॥ বিবাহ স্থান ॥</span>
-                    <h3 class="text-3xl font-tiro font-bold text-[#3D0007]">স্থান ও মানচিত্র</h3>
+                    <span class="text-bengali-crimson font-tiro text-lg font-bold">॥ বিবাহ স্থান ॥</span>
+                    <h3 class="text-3xl font-tiro font-bold text-maroon-900">স্থান ও মানচিত্র</h3>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-xl border border-[#D4AF37]/30 text-center transform hover:shadow-2xl transition duration-500">
-                    <h4 class="text-2xl font-tiro font-bold text-[#3D0007] mb-1">প্রীতিভোজের স্থান: নিজ বাসভবন</h4>
+                <div class="bg-white rounded-2xl p-6 shadow-xl border border-bengali-gold/30 text-center transform hover:shadow-2xl transition duration-500">
+                    <h4 class="text-2xl font-tiro font-bold text-maroon-900 mb-1">প্রীতিভোজের স্থান: নিজ বাসভবন</h4>
                     <p class="font-hind text-gray-800 text-lg font-medium mb-4">তাঁতিশাল (নাগপাড়া), হেলান , হুগলি, পশ্চিমবঙ্গ</p>
 
-                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="block group relative w-full h-64 rounded-xl overflow-hidden border-2 border-[#D4AF37]/50 mb-4 shadow-md cursor-pointer">
+                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="block group relative w-full h-64 rounded-xl overflow-hidden border-2 border-bengali-gold/50 mb-4 shadow-md cursor-pointer">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.258908359708!2d87.8631!3d22.8294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8489c79e60f0d%3A0x6b3017a58a98a005!2sTantisal%2C%20West%20Bengal%20712412!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
                             width="100%" 
@@ -575,13 +575,13 @@
                             referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition duration-300 flex items-end justify-center pb-3">
-                            <span class="bg-[#3D0007]/90 text-[#D4AF37] font-hind text-xs px-3 py-1.5 rounded-full border border-[#D4AF37] shadow-md">
+                            <span class="bg-maroon-900/90 text-bengali-gold font-hind text-xs px-3 py-1.5 rounded-full border border-bengali-gold shadow-md">
                                 <i class="fas fa-external-link-alt mr-1"></i> Google Maps-এ খুলতে ট্যাপ করুন
                             </span>
                         </div>
                     </a>
 
-                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 bg-[#800020] text-[#D4AF37] font-hind font-bold px-6 py-2.5 rounded-full shadow hover:bg-[#3D0007] transition transform hover:scale-105">
+                    <a href="https://maps.app.goo.gl/qy2R3surnwgizhnY7?g_st=ac" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 bg-bengali-crimson text-bengali-gold font-hind font-bold px-6 py-2.5 rounded-full shadow hover:bg-maroon-900 transition transform hover:scale-105">
                         <i class="fas fa-directions"></i>
                         <span>প্রীতিভোজের স্থানে যাওয়ার দিকনির্দেশ</span>
                     </a>
@@ -589,22 +589,22 @@
             </section>
 
             <section class="py-10 px-4 max-w-xl mx-auto reveal-scale">
-                <div class="bg-white rounded-2xl p-6 shadow-xl border border-[#D4AF37]/40">
-                    <h3 class="text-2xl font-tiro font-bold text-[#3D0007] text-center mb-4">আপনার খাবারের পছন্দ জানান</h3>
+                <div class="bg-white rounded-2xl p-6 shadow-xl border border-bengali-gold/40">
+                    <h3 class="text-2xl font-tiro font-bold text-maroon-900 text-center mb-4">আপনার খাবারের পছন্দ জানান</h3>
                     
                     <form id="food-rsvp-form" onsubmit="handleFoodRSVP(event)" class="space-y-4">
                         <div class="space-y-3 font-hind text-gray-800 text-base">
-                            <label class="flex items-center space-x-3 cursor-pointer bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 hover:border-[#D4AF37] transition">
-                                <input type="radio" name="food_pref" value="Veg" required class="text-[#800020] focus:ring-[#D4AF37] h-5 w-5">
+                            <label class="flex items-center space-x-3 cursor-pointer bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 hover:border-bengali-gold transition">
+                                <input type="radio" name="food_pref" value="Veg" required class="text-bengali-crimson focus:ring-bengali-gold h-5 w-5">
                                 <span class="font-medium">নিরামিষ</span>
                             </label>
-                            <label class="flex items-center space-x-3 cursor-pointer bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 hover:border-[#D4AF37] transition">
-                                <input type="radio" name="food_pref" value="Non-Veg" required class="text-[#800020] focus:ring-[#D4AF37] h-5 w-5" checked>
+                            <label class="flex items-center space-x-3 cursor-pointer bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 hover:border-bengali-gold transition">
+                                <input type="radio" name="food_pref" value="Non-Veg" required class="text-bengali-crimson focus:ring-bengali-gold h-5 w-5" checked>
                                 <span class="font-medium">আমিষ</span>
                             </label>
                         </div>
 
-                        <button type="submit" id="rsvp-btn" class="w-full bg-[#800020] text-[#D4AF37] font-tiro font-bold text-xl py-3 rounded-xl shadow hover:bg-[#3D0007] transition transform active:scale-95 flex items-center justify-center space-x-2">
+                        <button type="submit" id="rsvp-btn" class="w-full bg-bengali-crimson text-bengali-gold font-tiro font-bold text-xl py-3 rounded-xl shadow hover:bg-maroon-900 transition transform active:scale-95 flex items-center justify-center space-x-2">
                             <span id="rsvp-btn-text">জমা দিন</span>
                             <i id="rsvp-spinner" class="fas fa-spinner fa-spin hidden"></i>
                         </button>
@@ -623,9 +623,9 @@
         <div id="page-story" class="page-view hidden">
             <div class="story-page-shell space-y-6">
                 <div class="page-stagger text-center">
-                    <span class="text-[#800020] font-tiro text-lg">॥ আমাদের গল্প ॥</span>
-                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-[#3D0007] mb-3">আমাদের পথ চলা শুরু</h2>
-                    <div class="w-20 h-1 bg-[#D4AF37] mx-auto rounded-full"></div>
+                    <span class="text-bengali-crimson font-tiro text-lg">॥ আমাদের গল্প ॥</span>
+                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900 mb-3">আমাদের পথ চলা শুরু</h2>
+                    <div class="w-20 h-1 bg-bengali-gold mx-auto rounded-full"></div>
                 </div>
                 <img src="./story-page.jpg" alt="আমাদের পথ চলা" class="page-stagger w-full shadow-none" loading="lazy">
                 <p class="page-stagger font-hind text-gray-800 text-base md:text-lg leading-loose text-center md:px-8">
@@ -633,7 +633,7 @@
                 </p>
             </div>
             <div class="max-w-2xl mx-auto px-4 pt-7">
-                <button onclick="goBackToHome('page-story')" class="return-home-btn w-full bg-[#800020] hover:bg-[#3D0007] text-[#D4AF37] font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-[#D4AF37] flex items-center justify-center space-x-3 transition">
+                <button onclick="goBackToHome('page-story')" class="return-home-btn w-full bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-bengali-gold flex items-center justify-center space-x-3 transition">
                     <i class="fas fa-arrow-left"></i><span>মূল নিমন্ত্রণপত্রে ফিরে যান</span>
                 </button>
             </div>
@@ -643,20 +643,20 @@
         <div id="page-family" class="page-view hidden">
             <div class="family-page-shell space-y-8">
                 <div class="page-stagger text-center">
-                    <span class="text-[#800020] font-tiro text-lg">॥ দুই পরিবারের বন্ধন ॥</span>
-                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-[#3D0007]">পরিবার পরিচিতি</h2>
-                    <div class="w-20 h-1 bg-[#D4AF37] mx-auto mt-3 rounded-full"></div>
+                    <span class="text-bengali-crimson font-tiro text-lg">॥ দুই পরিবারের বন্ধন ॥</span>
+                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900">পরিবার পরিচিতি</h2>
+                    <div class="w-20 h-1 bg-bengali-gold mx-auto mt-3 rounded-full"></div>
                 </div>
                 
                 <div class="page-stagger space-y-4 text-center">
-                    <h3 class="text-2xl font-tiro font-bold text-[#800020]">বরপক্ষ</h3>
+                    <h3 class="text-2xl font-tiro font-bold text-bengali-crimson">বরপক্ষ</h3>
                     <div class="family-img-container cursor-pointer mx-auto" onclick="openLightbox('./groom-family.jpg')">
                         <img src="./groom-family.jpg" alt="বরের পরিবার" loading="lazy">
                     </div>
                 </div>
                 
                 <div class="page-stagger space-y-4 text-center">
-                    <h3 class="text-2xl font-tiro font-bold text-[#800020]">কনেপক্ষ</h3>
+                    <h3 class="text-2xl font-tiro font-bold text-bengali-crimson">কনেপক্ষ</h3>
                     <div class="family-img-container cursor-pointer mx-auto" onclick="openLightbox('./bride-family.jpg')">
                         <img src="./bride-family.jpg" alt="কনের পরিবার" loading="lazy">
                     </div>
@@ -664,7 +664,7 @@
 
                 <div class="page-stagger window-frame-container font-hind text-gray-800 space-y-6 text-center">
                     <div class="py-2">
-                        <h4 class="font-tiro text-2xl font-bold text-[#800020] mb-3 border-b-2 border-[#D4AF37]/40 pb-2 inline-block">পাত্রের পরিবারের পরিচয়</h4>
+                        <h4 class="font-tiro text-2xl font-bold text-bengali-crimson mb-3 border-b-2 border-bengali-gold/40 pb-2 inline-block">পাত্রের পরিবারের পরিচয়</h4>
                         <div class="space-y-1 text-base md:text-lg font-medium">
                             <p><strong>দাদু:</strong> ঈশ্বর নিতাই পদ নাগ</p>
                             <p><strong>ঠাকুমা:</strong> শ্রীমতী ছবি রানী নাগ</p>
@@ -674,8 +674,8 @@
                         </div>
                     </div>
                     
-                    <div class="py-2 border-t border-[#D4AF37]/40">
-                        <h4 class="font-tiro text-2xl font-bold text-[#800020] mb-3 border-b-2 border-[#D4AF37]/40 pb-2 inline-block">পাত্রী পরিবারের পরিচয়</h4>
+                    <div class="py-2 border-t border-bengali-gold/40">
+                        <h4 class="font-tiro text-2xl font-bold text-bengali-crimson mb-3 border-b-2 border-bengali-gold/40 pb-2 inline-block">পাত্রী পরিবারের পরিচয়</h4>
                         <div class="space-y-1 text-base md:text-lg font-medium">
                             <p><strong>পিতা:</strong> শুকদেব কুমার আদক</p>
                             <p><strong>মাতা:</strong> লক্ষ্মী আদক</p>
@@ -684,14 +684,14 @@
                         </div>
                     </div>
 
-                    <p class="text-sm italic text-gray-700 pt-2 border-t border-[#D4AF37]/20">
+                    <p class="text-sm italic text-gray-700 pt-2 border-t border-bengali-gold/20">
                         উভয় পরিবারের আশীর্বাদ ও স্নেহধন্য হয়ে অনিরুদ্ধ ও সুহিতা তাঁদের নতুন জীবনের পথে এগিয়ে চলেছে।
                     </p>
                 </div>
             </div>
             
             <div class="max-w-2xl mx-auto px-4 pt-7">
-                <button onclick="goBackToHome('page-family')" class="return-home-btn w-full bg-[#800020] hover:bg-[#3D0007] text-[#D4AF37] font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-[#D4AF37] flex items-center justify-center space-x-3 transition">
+                <button onclick="goBackToHome('page-family')" class="return-home-btn w-full bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-bengali-gold flex items-center justify-center space-x-3 transition">
                     <i class="fas fa-arrow-left"></i><span>মূল নিমন্ত্রণপত্রে ফিরে যান</span>
                 </button>
             </div>
@@ -701,7 +701,7 @@
         <div id="page-card" class="page-view hidden">
             <div class="wedding-card-shell space-y-6 text-center">
                 <div class="page-stagger">
-                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-[#3D0007] mb-3">বিয়ের কার্ড</h2>
+                    <h2 class="text-3xl md:text-4xl font-tiro font-bold text-maroon-900 mb-3">বিয়ের কার্ড</h2>
                 </div>
 
                 <!-- Interactive 3D Card Animation Container -->
@@ -711,7 +711,7 @@
                         <div class="card-face front relative">
                             <img src="./wedding-cover.jpg" alt="বিয়ের কার্ড কভার পেজ" class="w-full h-auto block" onerror="this.src='./hero.jpg'">
                             <div class="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
-                                <span class="tap-hint bg-[#800020]/90 text-[#D4AF37] border border-[#D4AF37] px-4 py-2 rounded-full font-hind text-xs font-bold shadow-lg">
+                                <span class="tap-hint bg-bengali-crimson/90 text-bengali-gold border border-bengali-gold px-4 py-2 rounded-full font-hind text-xs font-bold shadow-lg">
                                     <i class="fas fa-hand-pointer mr-1"></i> কার্ডের উপর ট্যাপ করুন
                                 </span>
                             </div>
@@ -724,29 +724,29 @@
                 </div>
 
                 <div class="page-stagger pt-4">
-                    <a id="wedding-card-download" href="./wedding-card-final.jpg" download="wedding-card-final.jpg" class="inline-flex items-center justify-center gap-2 bg-[#800020] hover:bg-[#3D0007] text-[#D4AF37] font-tiro font-bold text-lg px-7 py-3 rounded-full border-2 border-[#D4AF37] shadow-lg transition">
+                    <a id="wedding-card-download" href="./wedding-card-final.jpg" download="wedding-card-final.jpg" class="inline-flex items-center justify-center gap-2 bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold font-tiro font-bold text-lg px-7 py-3 rounded-full border-2 border-bengali-gold shadow-lg transition">
                         <i class="fas fa-download"></i><span>বিয়ের কার্ড ডাউনলোড করুন</span>
                     </a>
                 </div>
             </div>
 
             <div class="max-w-2xl mx-auto px-4 pt-7">
-                <button onclick="goBackToHome('page-card')" class="return-home-btn w-full bg-[#800020] hover:bg-[#3D0007] text-[#D4AF37] font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-[#D4AF37] flex items-center justify-center space-x-3 transition">
+                <button onclick="goBackToHome('page-card')" class="return-home-btn w-full bg-bengali-crimson hover:bg-maroon-900 text-bengali-gold font-tiro font-bold text-xl py-3.5 rounded-full shadow-xl border-2 border-bengali-gold flex items-center justify-center space-x-3 transition">
                     <i class="fas fa-arrow-left"></i><span>মূল নিমন্ত্রণপত্রে ফিরে যান</span>
                 </button>
             </div>
         </div>
 
-        <footer class="bg-[#3D0007] text-[#D4AF37] py-10 px-4 text-center border-t-2 border-[#D4AF37] mt-12 shadow-inner">
+        <footer class="bg-maroon-900 text-bengali-gold py-10 px-4 text-center border-t-2 border-bengali-gold mt-12 shadow-inner">
             <h4 class="font-tiro text-2xl font-bold">অনিরুদ্ধ ♥ সুহিতা</h4>
-            <p class="font-hind text-[#F3E5AB] text-sm mt-1">আপনার উপস্থিতি আমাদের আনন্দকে দ্বিগুণ করে তুলবে।</p>
-            <p class="font-hind text-xs text-[#D4AF37]/60 mt-4">© ২০২৬ ঐতিহ্যবাহী বাঙালি বিবাহ নিমন্ত্রণ</p>
+            <p class="font-hind text-bengali-goldlight text-sm mt-1">আপনার উপস্থিতি আমাদের আনন্দকে দ্বিগুণ করে তুলবে।</p>
+            <p class="font-hind text-xs text-bengali-gold/60 mt-4">© ২০২৬ ঐতিহ্যবাহী বাঙালি বিবাহ নিমন্ত্রণ</p>
         </footer>
 
     </main>
 
     <div id="image-modal" role="dialog" aria-modal="true" aria-label="ছবির পূর্বরূপ" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
-        <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-[#D4AF37] text-3xl transition">
+        <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-bengali-gold text-3xl transition">
             <i class="fas fa-times"></i>
         </button>
         <img id="modal-img-display" src="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl">
